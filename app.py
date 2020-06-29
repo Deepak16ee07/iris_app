@@ -15,7 +15,7 @@ def predictions(req):
   print(y_pred[0])
   return(y_pred[0])
 
-imp_model = pickle.load(open('model.pk2','rb'))
+imp_model = pickle.load(open('model.pkl','rb'))
 app = Flask(__name__)
 CORS(app)
 @app.route('/',methods = ["GET","POST"])
