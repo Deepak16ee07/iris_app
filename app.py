@@ -4,7 +4,6 @@ import pickle
 import numpy as np
 import os
 
-iris = ["Setosa","Versicolor","Virginica"]
 def predictions(req):
   data = req.form or req.get_json(force = True)
   param1 = data["sepalLength"]
@@ -13,9 +12,8 @@ def predictions(req):
   param4 = data['petalWidth']
   pred = np.array([[param1 , param2 ,param3 ,param4]], dtype = np.float)
   y_pred = imp_model.predict(pred)
-  i = int(y_pred[0])
   print(int(y_pred[0]))
-  return(iris[i])
+  return(y_pred[0])
 
 
 imp_model = pickle.load(open('model.pkl','rb'))
