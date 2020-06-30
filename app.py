@@ -4,8 +4,9 @@ import pickle
 import numpy as np
 import os
 
+
 def predictions(req):
-  data = request.get_json(force = True)
+  data = req.form or request.get_json(force = True)
   param1 = data["sepalLength"]
   param2 = data['sepalWidth']
   param3 = data['petalLength']
@@ -13,7 +14,8 @@ def predictions(req):
   pred = np.array([[param1 , param2 ,param3 ,param4]], dtype = np.float)
   y_pred = imp_model.predict(pred)
   print(y_pred[0])
-  return(y_pred[0])
+  return(int(y_pred[0]))
+
 
 imp_model = pickle.load(open('model.pkl','rb'))
 app = Flask(__name__)
@@ -21,14 +23,20 @@ CORS(app)
 @app.route('/',methods = ["GET","POST"])
 def index():
   if request.method == 'POST':
-    return jsonify(results = int(predictions(request)))
+    if request.form:
+      return render_template('index.html', results = int(predictions(request)))
+    else:
+      return jsonify(results = int(predictions(request)))
   else :
-    return ("server is running...")
+    return render_template('index.html')
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
   if request.method == 'POST':
-    return jsonify(results = int(predictions(request)))
+    if request.form:
+      return(render_template('index.html', results = int( predictions(request))))
+    else :
+      return jsonify(results = int(predictions(request)))
   else :
-    return ("server is running..")
+    return render_template('index.html', results = "undefined")
 if __name__ == '__main__':
-  app.run(host = '0.0.0.0', port = int(os.environ.get("PORT",8080)))
+  app.run(debug =True ,host = '0.0.0.0', port = int(os.environ.get("PORT",8080)))

@@ -1,15 +1,16 @@
 <html>
     <body>
+        <h1>INPUTS</h1>
         <form action ="/predict" method = "post"\> 
-            <input placeholder="Enter data" type ="number" step ="o,1" name="sepalLength" id="sepalLength" />
-            <input placeholder="Enter data"  type ="number" step ="o,1" name="sepalWidth" id="sepalWidth" />
-            <input placeholder="Enter data"  type ="number" step ="o,1" name="petalLength" id="petalLength" />
-            <input placeholder="Enter data"  type ="number" step ="o,1" name="petalWidth" id="petalWidth"/>
+            <input placeholder="Enter data"  type ="number" step ="o,1" name="sepalLength" id="sepalLength" >
+            <input placeholder="Enter data"  type ="number" step ="o,1" name="sepalWidth" id="sepalWidth" >
+            <input placeholder="Enter data"  type ="number" step ="o,1" name="petalLength" id="petalLength" >
+            <input placeholder="Enter data"  type ="number" step ="o,1" name="petalWidth" id="petalWidth">
 
-            <input type ="submit" value = "Submit Form"/>
+            <input type ="submit" value = "Submit Form">
         </form>
-        {% if results or results == 0%}
-            <h2> Results------>{{results}}</h2>
+        {% if results|int == 0 or results %}
+        <h2> Results------>{{results}}</h2>
         {% endif %}
     </body>
 </html>
