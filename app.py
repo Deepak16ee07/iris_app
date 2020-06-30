@@ -1,4 +1,4 @@
-from flask import Flask , jsonify , make_response,request
+from flask import Flask , jsonify , make_response,request,render_template
 from flask_cors import CORS
 import pickle
 import numpy as np
