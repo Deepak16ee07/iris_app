@@ -6,15 +6,15 @@ import os
 
 
 def predictions(req):
-  data = req.form or request.get_json(force = True)
+  data = req.form or req.get_json(force = True)
   param1 = data["sepalLength"]
   param2 = data['sepalWidth']
   param3 = data['petalLength']
   param4 = data['petalWidth']
   pred = np.array([[param1 , param2 ,param3 ,param4]], dtype = np.float)
   y_pred = imp_model.predict(pred)
-  print(y_pred[0])
-  return(int(y_pred[0]))
+  print(int(y_pred[0]))
+  return(y_pred[0])
 
 
 imp_model = pickle.load(open('model.pkl','rb'))
@@ -39,4 +39,4 @@ def predict():
   else :
     return render_template('index.html', results = "undefined")
 if __name__ == '__main__':
-  app.run(debug =True ,host = '0.0.0.0', port = int(os.environ.get("PORT",8080)))
+  app.run(host = '0.0.0.0', port = int(os.environ.get("PORT",8080)))
